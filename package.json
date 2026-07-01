@@ -2,6 +2,7 @@
   "name": "projeto-mineradora",
   "private": true,
   "scripts": {
+    "dev": "cd backend && npm run dev",
     "build": "cd backend && npm install",
     "start": "cd backend && npm start"
   },
