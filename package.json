@@ -1,4 +1,10 @@
 {
+  "name": "projeto-mineradora",
+  "private": true,
+  "scripts": {
+    "build": "cd backend && npm install",
+    "start": "cd backend && npm start"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2"
   }
