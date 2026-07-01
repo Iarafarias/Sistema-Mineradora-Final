@@ -1,7 +1,15 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3001' : '');
+
+function getApiBaseUrl() {
+  if (!API_BASE_URL) {
+    throw new Error('Configure VITE_API_URL no ambiente de producao.');
+  }
+
+  return API_BASE_URL;
+}
 
 async function request(path, options = {}) {
-  const resposta = await fetch(`${API_BASE_URL}${path}`, {
+  const resposta = await fetch(`${getApiBaseUrl()}${path}`, {
     headers: {
       'Content-Type': 'application/json',
       ...(options.headers || {}),
@@ -10,7 +18,7 @@ async function request(path, options = {}) {
   });
 
   if (!resposta.ok) {
-    throw new Error('Erro na comunicacao com a API.');
+    throw new Error(`Erro na comunicacao com a API. Status: ${resposta.status}`);
   }
 
   const data = await resposta.json();

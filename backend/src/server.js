@@ -11,8 +11,15 @@ const servicoRoutes = require('./routes/servicoRoutes');
 
 const app = express();
 const port = process.env.PORT || 3001;
+const corsOrigin = process.env.CORS_ORIGIN;
 
-app.use(cors());
+const corsOptions = {
+  origin: corsOrigin
+    ? corsOrigin.split(',').map((origin) => origin.trim())
+    : true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/health', (req, res) => {
